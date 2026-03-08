@@ -11,14 +11,6 @@ from textual.widget import Widget
 from ..services.models import ServiceInfo
 
 
-_LOG_LEVEL_RE = re.compile(
-    r"\b(ERROR|CRITICAL|EMERG|ALERT|error|critical)\b"
-    r"|\b(WARNING|WARN|warning|warn)\b"
-    r"|\b(INFO|NOTICE|info|notice)\b"
-    r"|\b(DEBUG|debug)\b"
-)
-
-
 def _colorize_log(line: str) -> Text:
     """Apply basic color styling to a journal log line."""
     text = Text(line)

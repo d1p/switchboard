@@ -8,7 +8,7 @@ from typing import Optional
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.widgets import Header, Footer, Input, Label, Static, DataTable, Select
-from textual.containers import Container, Horizontal
+from textual.containers import Horizontal
 from textual import work, on
 
 from .services import (
@@ -52,7 +52,6 @@ class SwitchboardApp(App):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self._services: dict[str, ServiceInfo] = {}  # unit → ServiceInfo
-        self._last_refresh: float = 0.0
         self._loading: bool = True
 
     # ------------------------------------------------------------------
@@ -62,7 +61,7 @@ class SwitchboardApp(App):
     # Status filter options shown in the Select dropdown
     STATUS_OPTIONS: list[tuple[str, str]] = [
         ("All statuses", ""),
-        ("● Running", "active"),
+        ("● Active", "active"),
         ("● Activating", "activating"),
         ("● Inactive", "inactive"),
         ("● Failed", "failed"),

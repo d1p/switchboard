@@ -107,7 +107,7 @@ Replace `%wheel` with your username or group as appropriate.
 switchboard
 ```
 
-The table loads all installed systemd service units (active, inactive, failed). Resource data (memory, CPU, tasks) populates in a second pass and refreshes automatically every 3 seconds.
+The table loads loaded systemd service units via `systemctl list-units --type=service --all` (active, inactive, failed, etc.). Resource data (memory, CPU, tasks) populates in a second pass and refreshes automatically every 3 seconds.
 
 ---
 
@@ -143,7 +143,7 @@ The table loads all installed systemd service units (active, inactive, failed). 
 
 ### Search / Filter
 
-Press `/` to jump to the search bar. Type any part of the service name or description — the table filters in real-time. Press `Escape` to clear the filter and return focus to the table.
+Press `/` to jump to the search bar. Type any part of the service name or description — the table filters in real-time. Use the **status dropdown** next to search to filter by service active state. Press `Escape` to clear both filters and return focus to the table.
 
 ---
 
@@ -189,4 +189,4 @@ Switchboard uses:
 - **`systemctl`** (subprocess) — service listing, property fetching, and control commands
 - **`journalctl`** (subprocess) — journal log retrieval per service
 
-All `systemctl`/`journalctl` calls are async (`asyncio.create_subprocess_exec`), keeping the UI fully responsive during data fetches. Up to 20 property fetches run concurrently via a semaphore.
+All `systemctl`/`journalctl` calls are async (`asyncio.create_subprocess_exec`), keeping the UI fully responsive during data fetches. Resource refreshes use batched `systemctl show` calls (up to 50 units per call) with per-unit fallback retries for any missing units.

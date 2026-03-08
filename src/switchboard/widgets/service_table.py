@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from textual.widgets import DataTable
-from textual.coordinate import Coordinate
 from rich.text import Text
 
 from ..services.models import ServiceInfo

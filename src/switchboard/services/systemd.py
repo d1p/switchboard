@@ -34,8 +34,8 @@ async def _run(*args: str, input: Optional[str] = None) -> tuple[int, str, str]:
 
 
 async def list_all_services() -> list[ServiceInfo]:
-    """Return all installed systemd service units (any state)."""
-    rc, out, err = await _run(
+    """Return loaded systemd service units (any active state)."""
+    rc, out, _ = await _run(
         "systemctl", "list-units",
         "--type=service", "--all",
         "--no-pager", "--output=json",
@@ -155,6 +155,18 @@ async def batch_get_resources(units: list[str]) -> dict[str, dict[str, str]]:
     for r in results:
         if isinstance(r, dict):
             merged.update(r)
+
+    # Fallback: if a batch fails or misses some units, retry per-unit.
+    missing_units = [unit for unit in units if unit not in merged]
+    if missing_units:
+        retry_results = await asyncio.gather(
+            *(get_service_properties(unit) for unit in missing_units),
+            return_exceptions=True,
+        )
+        for unit, props in zip(missing_units, retry_results):
+            if isinstance(props, dict) and props:
+                merged[unit] = props
+
     return merged
 
 
@@ -196,7 +208,14 @@ async def _run_control(verb: str, unit: str) -> tuple[bool, str]:
     """Run a systemctl control command (start/stop/restart/enable/disable)."""
     rc, out, err = await _run("sudo", "systemctl", verb, unit)
     if rc == 0:
-        return True, f"{verb.capitalize()}ed {unit}"
+        past_tense = {
+            "start": "Started",
+            "stop": "Stopped",
+            "restart": "Restarted",
+            "enable": "Enabled",
+            "disable": "Disabled",
+        }
+        return True, f"{past_tense.get(verb, verb.capitalize())} {unit}"
     msg = err.strip() or out.strip() or f"Exit code {rc}"
     return False, msg
 

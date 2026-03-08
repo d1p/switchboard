@@ -3,7 +3,7 @@ name = "switchboard"
 version = "0.1.0"
 description = "A rich TUI for managing systemd services"
 readme = "README.md"
-author = "Debashis Dip"
+authors = [{ name = "Debashis Dip" }]
 requires-python = ">=3.11"
 dependencies = [
     "textual>=1.0.0",

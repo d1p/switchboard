@@ -1,7 +1,7 @@
 """Data models for systemd service information."""
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 from rich.text import Text
