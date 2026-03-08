@@ -1,0 +1,21 @@
+[project]
+name = "switchboard"
+version = "0.1.0"
+description = "A rich TUI for managing systemd services"
+readme = "README.md"
+author = "Debashis Dip"
+requires-python = ">=3.11"
+dependencies = [
+    "textual>=1.0.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["textual-dev", "pytest", "pytest-asyncio"]
+
+[project.scripts]
+switchboard = "switchboard.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.10.7,<0.11.0"]
+build-backend = "uv_build"
