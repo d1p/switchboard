@@ -4,16 +4,16 @@ A modern, keyboard-driven terminal UI for managing systemd services on Linux.
 View status, resource usage, and journal logs — and start, stop, or restart services — all from one interactive dashboard.
 
 ```
-┌─ Switchboard ──────────────────────────────────────────────────────────────────────┐
+┌─ Switchboard ───────────────────────────────────────────────────────────────────────┐
 │  search: _                                                                          │
 ├─────────────────────────────────────────────────────────────────────────────────────┤
 │ Service                       Description                         Status   Mem   CPU│
-│ accounts-daemon.service       Accounts Service                  ● running 1.4MB —  │
-│ docker.service                Docker Application Container Eng  ● running 82MB 0.1%│
-│ NetworkManager.service        Network Manager                   ● running 12MB —  │
-│ ollama.service                Ollama Service                    ● running 1.2GB 4% │
-│ sshd.service                  OpenSSH Daemon                    ● running 4.1MB —  │
-│ openvpn.service               OpenVPN service                   ● dead    —   —   │
+│ accounts-daemon.service       Accounts Service                  ● running 1.4MB   — │
+│ docker.service                Docker Application Container Eng  ● running 82MB 0.1% │
+│ NetworkManager.service        Network Manager                   ● running 12MB   —  │
+│ ollama.service                Ollama Service                    ● running 1.2GB 4%  │
+│ sshd.service                  OpenSSH Daemon                    ● running 4.1MB —   │
+│ openvpn.service               OpenVPN service                   ● dead    —     —   │
 ├─────────────────────────────────────────────────────────────────────────────────────┤
 │ [Details] [Logs]                                                                    │
 │ Unit:        docker.service                                                         │
